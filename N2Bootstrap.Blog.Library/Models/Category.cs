@@ -7,7 +7,7 @@ using N2.Engine;
 using N2.Integrity;
 using N2.Persistence.Finder;
 using N2.Web;
-using N2Bootstrap.Blog.Library.Details;
+using N2Bootstrap.Library.Details;
 
 namespace N2Bootstrap.Blog.Library.Models
 {

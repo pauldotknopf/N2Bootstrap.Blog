@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using BootstrapBlog.Blog.Details;
 using N2;
 using N2.Details;
 using N2.Integrity;
 using N2.Web;
 using N2.Web.UI;
 using N2.Web.UI.WebControls;
+using N2Bootstrap.Library.Details;
 
 namespace N2Bootstrap.Blog.Library.Models
 {
@@ -20,29 +20,29 @@ namespace N2Bootstrap.Blog.Library.Models
         [EditableImage(ContainerName = "Blog")]
         public virtual string Image { get; set; }
 
-        [Details.EditableMultipleItemProviderSelection(typeof(Category), ContainerName = "Blog")]
+        [EditableMultipleItemProviderSelection(typeof(Category), ContainerName = "Blog")]
         public List<Category> BlogCategories
         {
             get
             {
-                return Library.Details.EditableMultipleItemProviderSelectionAttribute.GetStoredItems<Category>("BlogCategories", this);
+                return EditableMultipleItemProviderSelectionAttribute.GetStoredItems<Category>("BlogCategories", this);
             }
             set
             {
-                Library.Details.EditableMultipleItemProviderSelectionAttribute.ReplaceStoredValue("BlogCategories", this, value);
+                EditableMultipleItemProviderSelectionAttribute.ReplaceStoredValue("BlogCategories", this, value);
             }
         }
 
-        [Details.EditableMultipleItemProviderSelection(typeof(Tag), ContainerName = "Blog")]
+        [EditableMultipleItemProviderSelection(typeof(Tag), ContainerName = "Blog")]
         public List<Tag> BlogTags
         {
             get
             {
-                return Library.Details.EditableMultipleItemProviderSelectionAttribute.GetStoredItems<Tag>("BlogTags", this);
+                return EditableMultipleItemProviderSelectionAttribute.GetStoredItems<Tag>("BlogTags", this);
             }
             set
             {
-                Library.Details.EditableMultipleItemProviderSelectionAttribute.ReplaceStoredValue("BlogTags", this, value);
+                EditableMultipleItemProviderSelectionAttribute.ReplaceStoredValue("BlogTags", this, value);
             }
         }
 

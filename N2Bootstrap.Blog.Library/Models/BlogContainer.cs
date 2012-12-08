@@ -52,7 +52,7 @@ namespace N2Bootstrap.Blog.Library.Models
             get
             {
                 return GetChildren(N2.Content.Is.All(
-                        N2.Content.Is.AccessiblePage(), 
+                        N2.Content.Is.Accessible(), 
                         N2.Content.Is.Published(),
                         N2.Content.Is.Visible(), 
                         N2.Content.Is.Type<Tag>(),
@@ -67,7 +67,7 @@ namespace N2Bootstrap.Blog.Library.Models
             get
             {
                 return GetChildren(N2.Content.Is.All(
-                        N2.Content.Is.AccessiblePage(),
+                        N2.Content.Is.Accessible(),
                         N2.Content.Is.Published(),
                         N2.Content.Is.Visible(),
                         N2.Content.Is.Type<Tag>(),

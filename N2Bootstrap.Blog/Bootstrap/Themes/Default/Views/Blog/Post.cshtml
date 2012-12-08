@@ -22,18 +22,21 @@
         else
         {
             // we are rendering a list
-            <h1><a href="@Model.Post.Url" rel="bookmark" title="@Model.Post.Title">@Model.Post.Title</a></h1>
+            <div class="page-header">
+                <h1><a href="@Model.Post.Url" rel="bookmark" title="@Model.Post.Title">@Model.Post.Title</a></h1>
+            </div>
         }
         <p class="meta muted">
             Posted <time datetime="@Model.Post.Published.Value.ToShortDateString()" pubdate="">@Model.Post.Published.Value.ToString("MMMM dd, yyyy") </time>
             @if (Model.Post.BlogCategories.Any())
             {
                 <text>
-                <span class="amp">&amp;</span> filed under @Html.ContentItemLinkList(categories, link =>
-                                                                                                     {
-                                                                                                         link.Attribute("rel", "category tag");
-                                                                                                         link.Title("View all posts in " + (link as N2.Web.Link).Contents);
-                                                                                                     })
+                <span class="amp">&amp;</span> filed under @Html.ContentItemLinkList(categories,
+                    linkModifier: link =>
+                    {
+                        link.Attribute("rel", "category tag");
+                        link.Title("View all posts in " + (link as N2.Web.Link).Contents);
+                    })
                 </text>
             }
         </p>
@@ -41,7 +44,7 @@
     <section>
         @if (Model.IsList)
         {
-            @(!string.IsNullOrEmpty(Model.Post.Summary) ? Html.Raw(Model.Post.Summary) : Html.Raw(Model.Post.Text))
+            @(!string.IsNullOrEmpty(Model.Post.Summary) ? Html.Raw("<p>" + Model.Post.Summary + "</p>") : Html.Raw(Model.Post.Text))
         }
         else
         {
@@ -51,13 +54,13 @@
     <footer>
         @if (tags.Any())
         {
-            <text>
-                Tags: @Html.ContentItemLinkList(tags, link =>
+            <p>
+                Tags: @Html.ContentItemLinkList(tags, " ", link =>
                                                           {
                                                               link.Attribute("rel", "tag");
                                                               link.Class("label");
                                                           })
-            </text>
+            </p>
         }
     </footer>
 </article>

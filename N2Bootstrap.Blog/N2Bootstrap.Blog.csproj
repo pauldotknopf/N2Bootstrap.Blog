@@ -80,11 +80,13 @@
     <Reference Include="N2.Razor">
       <HintPath>..\packages\N2CMS.Razor.2.4.9.1\lib\NET40\N2.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap">
-      <HintPath>..\packages\N2Bootstrap.1.0.0.0\lib\net40\N2Bootstrap.dll</HintPath>
+    <Reference Include="N2Bootstrap, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\N2Bootstrap.1.0.0.1\lib\net40\N2Bootstrap.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap.Library">
-      <HintPath>..\packages\N2Bootstrap.Library.1.0.0.0\lib\net40\N2Bootstrap.Library.dll</HintPath>
+    <Reference Include="N2Bootstrap.Library, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\N2Bootstrap.Library.1.0.0.1\lib\net40\N2Bootstrap.Library.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.2.4000\lib\Net35\NHibernate.dll</HintPath>
@@ -212,12 +214,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\n2_host.config" />
-    <Content Include="Bootstrap\web.config" />
-    <Content Include="Bootstrap\Bootstrap.zip" />
-    <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
     <Content Include="Bootstrap\Themes\Default\Views\Blog\PageTemplates\Blog.cshtml" />
     <Content Include="Bootstrap\Themes\Default\Views\Blog\Post.cshtml" />
     <Content Include="Bootstrap\Themes\Default\Views\Blog\PageTemplates\Post.cshtml" />
+    <Content Include="Bootstrap\web.config" />
+    <Content Include="Bootstrap\Bootstrap.zip" />
+    <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
     <None Include="N2\n2cms.configuration.xsd">
       <SubType>Designer</SubType>
     </None>
