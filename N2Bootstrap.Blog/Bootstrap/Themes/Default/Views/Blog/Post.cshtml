@@ -1,0 +1,63 @@
+﻿@using N2Bootstrap.Blog.Library
+@model N2Bootstrap.Blog.Library.ViewModels.PostModel
+@{
+    var categories = Model.Post.BlogCategories;
+    var tags = Model.Post.BlogTags;
+}
+<article id="post-@(Model.Post.ID)" class="post-@(Model.Post.ID)" role="article">
+    <header>
+        @if (!Model.IsList)
+        {
+            // we are full page!
+
+            // refering to the "Post" class, the layout doesn't render page title in this case, so we must manually check and do it our selves (for semantics).
+            var showPageTitle = Model.Post.GetDetail("ShowPageTitle", true);
+            if (showPageTitle)
+            {
+            <div class="page-header">
+                <h1>@Model.Post.Title</h1>
+            </div>
+            }
+        }
+        else
+        {
+            // we are rendering a list
+            <h1><a href="@Model.Post.Url" rel="bookmark" title="@Model.Post.Title">@Model.Post.Title</a></h1>
+        }
+        <p class="meta muted">
+            Posted <time datetime="@Model.Post.Published.Value.ToShortDateString()" pubdate="">@Model.Post.Published.Value.ToString("MMMM dd, yyyy") </time>
+            @if (Model.Post.BlogCategories.Any())
+            {
+                <text>
+                <span class="amp">&amp;</span> filed under @Html.ContentItemLinkList(categories, link =>
+                                                                                                     {
+                                                                                                         link.Attribute("rel", "category tag");
+                                                                                                         link.Title("View all posts in " + (link as N2.Web.Link).Contents);
+                                                                                                     })
+                </text>
+            }
+        </p>
+    </header>
+    <section>
+        @if (Model.IsList)
+        {
+            @(!string.IsNullOrEmpty(Model.Post.Summary) ? Html.Raw(Model.Post.Summary) : Html.Raw(Model.Post.Text))
+        }
+        else
+        {
+            @Html.Raw(Model.Post.Text)
+        }
+    </section>
+    <footer>
+        @if (tags.Any())
+        {
+            <text>
+                Tags: @Html.ContentItemLinkList(tags, link =>
+                                                          {
+                                                              link.Attribute("rel", "tag");
+                                                              link.Class("label");
+                                                          })
+            </text>
+        }
+    </footer>
+</article>

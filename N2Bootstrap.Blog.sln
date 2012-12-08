@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N2Bootstrap.Blog", "N2Bootstrap.Blog\N2Bootstrap.Blog.csproj", "{0B8A02D1-FB09-42D0-85D8-97E6D9C77B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N2Bootstrap.Blog.Library", "N2Bootstrap.Blog.Library\N2Bootstrap.Blog.Library.csproj", "{98F3BA9F-DE30-45FB-8D13-61A57A6C453B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B8A02D1-FB09-42D0-85D8-97E6D9C77B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B8A02D1-FB09-42D0-85D8-97E6D9C77B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B8A02D1-FB09-42D0-85D8-97E6D9C77B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B8A02D1-FB09-42D0-85D8-97E6D9C77B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98F3BA9F-DE30-45FB-8D13-61A57A6C453B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98F3BA9F-DE30-45FB-8D13-61A57A6C453B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98F3BA9F-DE30-45FB-8D13-61A57A6C453B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98F3BA9F-DE30-45FB-8D13-61A57A6C453B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
