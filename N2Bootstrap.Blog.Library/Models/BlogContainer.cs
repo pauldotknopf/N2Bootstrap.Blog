@@ -4,13 +4,18 @@ using System.Text.RegularExpressions;
 using N2;
 using N2.Collections;
 using N2.Details;
+using N2.Integrity;
+using N2.Persistence;
 using N2.Web.UI;
+using N2Bootstrap.Blog.Library.Definitions;
 
 namespace N2Bootstrap.Blog.Library.Models
 {
-    [PageDefinition("Blog")]
-    [TabContainer("TagTab", "Tags", 1)]
-    [TabContainer("CategoryTab", "Categories", 2)]
+    [PageDefinition("Blog", IconUrl="/Bootstrap/Themes/Default/Content/Images/blog-icon.png")]
+    [TabContainer("TagTab", "Tags", int.MaxValue)]
+    [TabContainer("CategoryTab", "Categories", int.MaxValue)]
+    [BlogContainerIntegrity]
+    [NotVersionable]
     public class BlogContainer : N2Bootstrap.Library.Models.ContentPage
     {
         public override string ViewTemplate
@@ -35,7 +40,6 @@ namespace N2Bootstrap.Blog.Library.Models
                 N2.Content.Is.AccessiblePage(),
                 N2.Content.Is.Published()))
                 .AsQueryable();
-
 
             if (tag != null)
                 query = query.Where(x => x.BlogTags.Any(y => y.ID == tag.ID));

@@ -11,7 +11,7 @@ using N2Bootstrap.Library.Details;
 
 namespace N2Bootstrap.Blog.Library.Models
 {
-    [PartDefinition("Tag")]
+    [PartDefinition("Tag", IconUrl = "{IconsUrl}/tag_red.png")]
     [RestrictParents(typeof(BlogContainer))]
     [AllowedZones("Tag")]
     [WithEditableTitle, WithEditableName]

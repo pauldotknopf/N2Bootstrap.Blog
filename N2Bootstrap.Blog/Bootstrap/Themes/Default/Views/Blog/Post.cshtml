@@ -4,8 +4,14 @@
     var categories = Model.Post.BlogCategories;
     var tags = Model.Post.BlogTags;
 }
-<article id="post-@(Model.Post.ID)" class="post-@(Model.Post.ID)" role="article">
+<article id="post-@(Model.Post.ID)" class="blog-post post-@(Model.Post.ID)" role="article">
     <header>
+        @if (!string.IsNullOrEmpty(Model.Post.Image))
+        {
+            <a href="@Model.Post.Url" title="@Model.Post.Title">
+                <img src="@Model.Post.Image" alt="@Model.Post.Title" title="@Model.Post.Title">
+            </a>
+        }
         @if (!Model.IsList)
         {
             // we are full page!
@@ -14,9 +20,9 @@
             var showPageTitle = Model.Post.GetDetail("ShowPageTitle", true);
             if (showPageTitle)
             {
-            <div class="page-header">
-                <h1>@Model.Post.Title</h1>
-            </div>
+                <div class="page-header">
+                    <h1>@Model.Post.Title</h1>
+                </div>
             }
         }
         else
@@ -31,12 +37,12 @@
             @if (Model.Post.BlogCategories.Any())
             {
                 <text>
-                <span class="amp">&amp;</span> filed under @Html.ContentItemLinkList(categories,
-                    linkModifier: link =>
-                    {
-                        link.Attribute("rel", "category tag");
-                        link.Title("View all posts in " + (link as N2.Web.Link).Contents);
-                    })
+                    <span class="amp">&amp;</span> filed under @Html.ContentItemLinkList(categories,
+                                                                                         linkModifier: link =>
+                                                                                                           {
+                                                                                                               link.Attribute("rel", "category tag");
+                                                                                                               link.Title("View all posts in " + (link as N2.Web.Link).Contents);
+                                                                                                           })
                 </text>
             }
         </p>
