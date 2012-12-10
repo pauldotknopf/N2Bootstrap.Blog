@@ -1,3 +1,22 @@
 ﻿@using N2.Web
 @model N2Bootstrap.Blog.Library.Models.Categories
-categories
+@{
+    var blog = Model.GetBlogContainer(); 
+}
+@if (blog == null)
+{
+    <b>No blog container was found or specified.</b>
+    <p>If you are manually specifying a blog, ensure it is not deleted and it is a blog.</p>
+    <p>If you are not manually specifying a blog, then this part must be located below a blog.</p>
+}
+else
+{
+    var navigationModel = Model as N2Bootstrap.Library.ViewModels.INavigationModel;
+    navigationModel.StartFrom = blog;
+    navigationModel.Filtler = new N2.Collections.TypeFilter(typeof (N2Bootstrap.Blog.Library.Models.Category));
+    foreach (var child in navigationModel.StartFrom.Children)
+    {
+        child.ZoneName = null;
+    }
+    @Html.Partial("SubNavigation", navigationModel)
+}

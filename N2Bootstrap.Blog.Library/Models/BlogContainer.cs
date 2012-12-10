@@ -74,7 +74,7 @@ namespace N2Bootstrap.Blog.Library.Models
                         N2.Content.Is.Accessible(),
                         N2.Content.Is.Published(),
                         N2.Content.Is.Visible(),
-                        N2.Content.Is.Type<Tag>(),
+                        N2.Content.Is.Type<Category>(),
                         N2.Content.Is.InZone("Category")))
                     .Cast<Category>();
             }

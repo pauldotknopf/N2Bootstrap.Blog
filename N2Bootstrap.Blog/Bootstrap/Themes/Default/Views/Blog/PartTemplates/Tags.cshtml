@@ -1,3 +1,15 @@
 ﻿@using N2.Web
 @model N2Bootstrap.Blog.Library.Models.Tags
-tags
+@{
+    var blog = Model.GetBlogContainer();
+}
+@if (blog == null)
+{
+    <b>No blog container was found or specified.</b>
+    <p>If you are manually specifying a blog, ensure it is not deleted and it is a blog.</p>
+    <p>If you are not manually specifying a blog, then this part must be located below a blog.</p>
+}
+else
+{
+    <div>tags</div>
+}

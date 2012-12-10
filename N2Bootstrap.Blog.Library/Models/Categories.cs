@@ -17,5 +17,22 @@ namespace N2Bootstrap.Blog.Library.Models
             get { return base.GetDetail<ContentItem>("StartFrom", null); }
             set { base.SetDetail("StartFrom", value, null); }
         }
+
+        /// <summary>
+        /// Get the bog container to render categories from
+        /// </summary>
+        /// <returns></returns>
+        public BlogContainer GetBlogContainer()
+        {
+            if (StartFrom != null)
+            {
+                if (StartFrom is BlogContainer)
+                    return StartFrom as BlogContainer;
+
+                return null;
+            }
+
+            return Find.Closest<BlogContainer>(this);
+        }
     }
 }
