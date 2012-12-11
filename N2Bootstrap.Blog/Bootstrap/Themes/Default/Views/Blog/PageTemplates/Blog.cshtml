@@ -1,43 +1,8 @@
 ﻿@using N2Bootstrap.Blog.Library.Models
 @using N2Bootstrap.Blog.Library.ViewModels
 @model N2Bootstrap.Blog.Library.Models.BlogContainer
-@{
-    // current path info
-    var pathData = N2.Context.Current.RequestContext.CurrentPath;
-
-    // selected category/tag
-    Category category = null;
-    Tag tag = null;
-
-    // in case a category/tag is attempted by not found
-    bool redirect = false;
-
-    if (pathData.QueryParameters.ContainsKey("category"))
-    {
-        category = Model.Categories.SingleOrDefault(x => x.Name.Equals(pathData.QueryParameters["category"], StringComparison.InvariantCultureIgnoreCase));
-
-        if (category == null)
-        {
-            redirect = true;
-        }
-    }
-    if (pathData.QueryParameters.ContainsKey("tag"))
-    {
-        tag = Model.Tags.SingleOrDefault(x => x.Name.Equals(pathData.QueryParameters["tag"], StringComparison.InvariantCultureIgnoreCase));
-
-        if (tag == null)
-        {
-            redirect = true;
-        }
-    }
-
-    if (redirect)
-    {
-        Response.Redirect(Model.Url);
-    }
-}
 @Html.Partial("LayoutPartials/Content")
-@foreach (var post in Model.GetBlogPosts(tag, category))
+@foreach (var post in Model.GetBlogPosts(Model.GetSelectedTag(), Model.GetSelectedCategory()))
 {
     @Html.Partial("Post", new PostModel { IsList = true, Post = post })
 }

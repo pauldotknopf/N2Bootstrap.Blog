@@ -5,11 +5,46 @@
 }
 @if (blog == null)
 {
-    <b>No blog container was found or specified.</b>
-    <p>If you are manually specifying a blog, ensure it is not deleted and it is a blog.</p>
-    <p>If you are not manually specifying a blog, then this part must be located below a blog.</p>
+    <p>
+        <b>No blog container was found or specified.</b><br />
+        If you are manually specifying a blog, ensure it is not deleted and it is a blog.<br />
+        If you are not manually specifying a blog, then this part must be located below a blog.
+    </p>
 }
 else
 {
-    <div>tags</div>
+    if (!string.IsNullOrEmpty(Model.Title))
+    {
+        <h3>@Model.Title</h3>
+    }
+    <div class="tagcloud">
+        @{
+            var selectedTag = blog.GetSelectedTag();
+            var tags = blog.Tags.OrderBy(x => x.Name).ToList();
+            const int maximumFontSize = 22;
+            const int minimumFontSize = 8;
+            var maximumTagUsage = tags.Count > 0 ? tags.Max(x => x.NumberOfPosts) : 0;
+            var minimumTagUsage = tags.Count > 0 ? tags.Min(x => x.NumberOfPosts) : 0;
+            var fontRange = maximumFontSize - minimumFontSize;
+            var usageRange = maximumTagUsage - minimumTagUsage;
+            if (usageRange == 0)
+            {
+                usageRange = 1;
+            }
+        }
+        @foreach (var tag in tags)
+        {
+            var numberOfPosts = tag.NumberOfPosts;
+            if (numberOfPosts > 0)
+            {
+                var point = (tag.NumberOfPosts - minimumTagUsage)/usageRange;
+                var fontSize = (point*fontRange) + minimumFontSize;
+                var @class = ("label " + ((selectedTag != null && selectedTag.ID.Equals(tag.ID)) ? "label-info" : ""));
+                var style = "font-size: " + fontSize + "px !important;line-height: " + fontSize + "px !important;";
+                <text>
+                    @Link.To(tag).Class(@class).Attribute("style", style)&nbsp;
+                </text>
+            }
+        }
+    </div>
 }

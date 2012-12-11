@@ -2,6 +2,7 @@
 using System.Linq;
 using N2;
 using N2.Collections;
+using N2.Definitions;
 using N2.Details;
 using N2.Engine;
 using N2.Integrity;
@@ -15,6 +16,7 @@ namespace N2Bootstrap.Blog.Library.Models
     [RestrictParents(typeof(BlogContainer))]
     [AllowedZones("Category")]
     [WithEditableTitle, WithEditableName]
+    [Throwable(AllowInTrash.No)]
     public class Category : ContentItem, EditableMultipleItemProviderSelectionAttribute.IItemProvider
     {
         public virtual int NumberOfPosts
@@ -27,11 +29,10 @@ namespace N2Bootstrap.Blog.Library.Models
                     var postTypes = Context.Current.Container.Resolve<ITypeFinder>().Find(typeof(Post));
 
                     var posts = new ItemList<Post>(
-                        Find.Items.Where.Type.In(postTypes.ToArray()).And.Detail("BlogTags").In(this).Select<Post>(),
+                        Find.Items.Where.Type.In(postTypes.ToArray()).And.Detail("BlogCategories").In(this).Select<Post>(),
                         Content.Is.All(
                             Content.Is.AccessiblePage(),
-                            Content.Is.Published(),
-                            Content.Is.Visible()))
+                            Content.Is.Published()))
                         .AsQueryable();
 
                     return posts.Count();
@@ -41,13 +42,26 @@ namespace N2Bootstrap.Blog.Library.Models
 
         public override string Url
         {
-            get { return new N2.Web.Url(Parent.Url).AppendSegment("category/" + Name); }
+            get
+            {
+                // if we are on a category page, we want to render the parent url so that you can "unclick" a category.
+                var blog = Parent as BlogContainer;
+                if (blog != null)
+                {
+                    var selected = blog.GetSelectedCategory();
+                    if(selected != null && selected.ID.Equals(ID))
+                        return Parent.Url;
+                }
+
+                // otherwise, render the url to the category
+                return new Url(Parent.Url).AppendSegment("category/" + Name);
+            }
         }
 
         public List<ContentItem> GetContentItems(ContentItem curent, System.Type linkedType, System.Type excludedType, int searchThreshold, EditableItemSelectionFilter filtler)
         {
-            return Context.Current.Resolve<IItemFinder>()
-                       .Where.Type.Eq(typeof(Category)).And.Parent.Eq(curent.Parent).Select().ToList();
+            var blog = curent.Parent as BlogContainer;
+            return blog == null ? new List<ContentItem>() : blog.Categories.Cast<ContentItem>().ToList();
         }
     }
 }

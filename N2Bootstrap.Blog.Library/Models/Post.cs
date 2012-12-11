@@ -22,7 +22,7 @@ namespace N2Bootstrap.Blog.Library.Models
         [EditableImage(ContainerName = "Blog")]
         public virtual string Image { get; set; }
 
-        [EditableMultipleItemProviderSelection(typeof(Category), ContainerName = "Blog")]
+        [EditableMultipleItemProviderSelection(typeof(Category), Title = "Categories", ContainerName = "Blog")]
         public List<Category> BlogCategories
         {
             get
@@ -35,7 +35,7 @@ namespace N2Bootstrap.Blog.Library.Models
             }
         }
 
-        [EditableMultipleItemProviderSelection(typeof(Tag), ContainerName = "Blog")]
+        [EditableMultipleItemProviderSelection(typeof(Tag), Title = "Tags", ContainerName = "Blog")]
         public List<Tag> BlogTags
         {
             get

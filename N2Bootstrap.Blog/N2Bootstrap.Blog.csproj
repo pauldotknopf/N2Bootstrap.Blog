@@ -80,13 +80,13 @@
     <Reference Include="N2.Razor">
       <HintPath>..\packages\N2CMS.Razor.2.4.9.1\lib\NET40\N2.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="N2Bootstrap, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\N2Bootstrap.1.0.0.3\lib\net40\N2Bootstrap.dll</HintPath>
+      <HintPath>..\packages\N2Bootstrap.1.0.0.4\lib\net40\N2Bootstrap.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap.Library, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="N2Bootstrap.Library, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\N2Bootstrap.Library.1.0.0.3\lib\net40\N2Bootstrap.Library.dll</HintPath>
+      <HintPath>..\packages\N2Bootstrap.Library.1.0.0.4\lib\net40\N2Bootstrap.Library.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.2.4000\lib\Net35\NHibernate.dll</HintPath>

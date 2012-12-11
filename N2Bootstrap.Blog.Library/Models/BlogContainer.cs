@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 using N2;
 using N2.Collections;
 using N2.Details;
 using N2.Integrity;
 using N2.Persistence;
+using N2.Web;
 using N2.Web.UI;
 using N2Bootstrap.Blog.Library.Definitions;
 
@@ -97,6 +100,66 @@ namespace N2Bootstrap.Blog.Library.Models
             }
 
             return base.FindPath(remainingUrl);
+        }
+
+        public Category GetSelectedCategory()
+        {
+            if (System.Web.HttpContext.Current.Items["blogSelectedCategory"] != null)
+                return System.Web.HttpContext.Current.Items["blogSelectedCategory"] as Category;
+
+            // current path info
+            var pathData = N2.Context.Current.RequestContext.CurrentPath;
+            Category category = null;
+            bool redirect = false;
+
+            if (pathData.QueryParameters.ContainsKey("category"))
+            {
+                category = Categories.SingleOrDefault(x => x.Name.Equals(pathData.QueryParameters["category"], StringComparison.InvariantCultureIgnoreCase));
+
+                if (category == null)
+                {
+                    redirect = true;
+                }
+            }
+            
+            if (redirect)
+            {
+                System.Web.HttpContext.Current.Response.Redirect(Url);
+            }
+
+            System.Web.HttpContext.Current.Items["blogSelectedCategory"] = category;
+
+            return category;
+        }
+
+        public Tag GetSelectedTag()
+        {
+            if (System.Web.HttpContext.Current.Items["blogSelectedTag"] != null)
+                return System.Web.HttpContext.Current.Items["blogSelectedTag"] as Tag;
+
+            // current path info
+            var pathData = N2.Context.Current.RequestContext.CurrentPath;
+            Tag tag = null;
+            bool redirect = false;
+
+            if (pathData.QueryParameters.ContainsKey("tag"))
+            {
+                tag = Tags.SingleOrDefault(x => x.Name.Equals(pathData.QueryParameters["tag"], StringComparison.InvariantCultureIgnoreCase));
+
+                if (tag == null)
+                {
+                    redirect = true;
+                }
+            }
+
+            if (redirect)
+            {
+                System.Web.HttpContext.Current.Response.Redirect(Url);
+            }
+
+            System.Web.HttpContext.Current.Items["blogSelectedTag"] = tag;
+
+            return tag;
         }
     }
 }

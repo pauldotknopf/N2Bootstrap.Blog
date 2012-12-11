@@ -5,18 +5,21 @@
 }
 @if (blog == null)
 {
-    <b>No blog container was found or specified.</b>
-    <p>If you are manually specifying a blog, ensure it is not deleted and it is a blog.</p>
-    <p>If you are not manually specifying a blog, then this part must be located below a blog.</p>
+    <p>
+        <b>No blog container was found or specified.</b><br />
+        If you are manually specifying a blog, ensure it is not deleted and it is a blog.<br />
+        If you are not manually specifying a blog, then this part must be located below a blog.
+    </p>
 }
 else
 {
+    if (!string.IsNullOrEmpty(Model.Title))
+    {
+    <h3>@Model.Title</h3>
+    }
     var navigationModel = Model as N2Bootstrap.Library.ViewModels.INavigationModel;
     navigationModel.StartFrom = blog;
-    navigationModel.Filtler = new N2.Collections.TypeFilter(typeof (N2Bootstrap.Blog.Library.Models.Category));
-    foreach (var child in navigationModel.StartFrom.Children)
-    {
-        child.ZoneName = null;
-    }
+    navigationModel.Filtler = new N2.Collections.TypeFilter(typeof(N2Bootstrap.Blog.Library.Models.Category));
+    navigationModel.CurrentItem = blog.GetSelectedCategory();
     @Html.Partial("SubNavigation", navigationModel)
-}
+} 
