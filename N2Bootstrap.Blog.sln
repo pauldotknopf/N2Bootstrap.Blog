@@ -5,6 +5,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N2Bootstrap.Blog", "N2Boots
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N2Bootstrap.Blog.Library", "N2Bootstrap.Blog.Library\N2Bootstrap.Blog.Library.csproj", "{98F3BA9F-DE30-45FB-8D13-61A57A6C453B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B8BC988D-9264-45E0-99C2-A03662A10323}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1DDEEF90-7FF1-47C2-8553-9568779400F8}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Definitions.xml = Build\Definitions.xml
+		Build\N2Bootstrap.Blog.Library.nuspec = Build\N2Bootstrap.Blog.Library.nuspec
+		Build\N2Bootstrap.Blog.nuspec = Build\N2Bootstrap.Blog.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

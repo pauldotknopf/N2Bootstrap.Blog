@@ -20,6 +20,10 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <MSBuildCommunityTasksPath>$(SolutionDir)\Build</MSBuildCommunityTasksPath>
+    <ZipBootstrap>false</ZipBootstrap>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <DestinationZip>$(MSBuildProjectDirectory)\Bootstrap\Bootstrap.Blog.zip</DestinationZip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -173,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\SampleBootstrap.n2.xml.gz.txt" />
@@ -234,6 +239,7 @@
     <Content Include="Bootstrap\web.config" />
     <Content Include="Bootstrap\Bootstrap.zip" />
     <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
+    <Content Include="App_Data\n2_host.config.transform" />
     <None Include="N2\n2cms.configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -266,10 +272,18 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Target Name="CustomPostBuild" AfterTargets="AfterBuild" Condition="'$(ZipBootstrap)'=='true'">
+    <Message Text="Creating Blog.Zip" />
+    <ItemGroup>
+      <!-- All files from build -->
+      <ZipFiles Include="$(MSBuildProjectDirectory)\Bootstrap\Themes\**\*.*" Exclude="*.zip" />
+    </ItemGroup>
+    <Delete Files="$(DestinationZip)" Condition="Exists('$(DestinationZip)')" />
+    <Zip Files="@(ZipFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(DestinationZip)" ZipLevel="9" />
+    <Copy SourceFiles="$(DestinationZip)" DestinationFiles="$(WebProjectOutputDir)\Bootstrap\Bootstrap.Blog.zip" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target> -->
+  <Target Name="BeforeBuild">
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\VersionInfo.cs" AssemblyVersion="$(AssemblyVersion)" AssemblyFileVersion="$(AssemblyVersion)" AssemblyInformationalVersion="$(AssemblyVersion)" />
+  </Target>
+  <Import Project="$(SolutionDir)\Build\MSBuild.Community.Tasks.targets" />
 </Project>

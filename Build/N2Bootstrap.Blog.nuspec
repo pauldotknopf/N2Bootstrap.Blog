@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>N2Bootstrap.Blog</id>
+    <version>$version$</version>
+    <authors>Paul Knopf</authors>
+    <description>A blog extension to N2Bootstrap.</description>
+    <language>en-US</language>
+    <projectUrl>http://github.com/theonlylawislove/N2Bootstrap.Blog</projectUrl>
+    <licenseUrl>http://github.com/theonlylawislove/N2Bootstrap.Blog</licenseUrl>
+    <dependencies>
+      <dependency id="N2Bootstrap.Blog.Library" version="[$(version)]" />
+      <dependency id="N2Bootstrap" version="[1.0.0.5]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="N2Bootstrap.Blog.dll" target="lib\net40" />
+    <file src="N2Bootstrap.Blog.pdb" target="lib\net40" />
+    <file src="_PublishedWebsites\N2Bootstrap.Blog\Bootstrap\Bootstrap.Blog.zip" target="content\Bootstrap\Bootstrap.Blog.zip" />
+    <file src="_PublishedWebsites\N2Bootstrap.Blog\App_Data\n2_host.config.transform" target="content\App_Data\n2_host.config.transform" />
+  </files>
+</package>
