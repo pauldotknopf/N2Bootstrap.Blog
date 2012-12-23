@@ -15,8 +15,9 @@ using N2Bootstrap.Blog.Library.Definitions;
 namespace N2Bootstrap.Blog.Library.Models
 {
     [PageDefinition("Blog", IconUrl="/Bootstrap/Themes/Default/Content/Images/blog-icon.png")]
-    [TabContainer("TagTab", "Tags", int.MaxValue)]
-    [TabContainer("CategoryTab", "Categories", int.MaxValue)]
+    [TabContainer("TagTab", "Tags", 2000)]
+    [TabContainer("CategoryTab", "Categories", 3000)]
+    [TabContainer("Blog", "Blog", 4000)]
     [BlogContainerIntegrity]
     [NotVersionable]
     public class BlogContainer : N2Bootstrap.Library.Models.ContentPage
@@ -51,6 +52,16 @@ namespace N2Bootstrap.Blog.Library.Models
                 query = query.Where(x => x.BlogCategories.Any(y => y.ID == category.ID));
 
             return query.ToList();
+        }
+
+        [EditableChildren("Comments Plugin", "CommentsPlugin", 0, ContainerName = "Blog", SortOrder = int.MaxValue)]
+        public IList<CommentsPlugin> CommentsPlugins
+        {
+            get
+            {
+                return GetChildren(Content.Is.InZone("CommentsPlugin"))
+                    .Cast<CommentsPlugin>();
+            }
         }
 
         [EditableChildren("Tags", "Tag", 0, ContainerName = "TagTab", SortOrder=int.MaxValue)]

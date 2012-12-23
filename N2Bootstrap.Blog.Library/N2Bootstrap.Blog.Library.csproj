@@ -108,10 +108,14 @@
   <ItemGroup>
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Definitions\BlogContainerIntegrityAttribute.cs" />
+    <Compile Include="Definitions\CommentsPluginDefinitionAttribute.cs" />
     <Compile Include="HtmHelpers.cs" />
     <Compile Include="Models\BlogContainer.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CommentsPlugin.cs" />
+    <Compile Include="Models\DisqusCommentsPlugin.cs" />
+    <Compile Include="Models\LivefyreCommentsPlugin.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Tags.cs" />
