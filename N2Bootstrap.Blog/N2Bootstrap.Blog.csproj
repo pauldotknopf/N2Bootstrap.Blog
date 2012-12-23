@@ -15,7 +15,7 @@
     <AssemblyName>N2Bootstrap.Blog</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -240,6 +240,8 @@
     <Content Include="Bootstrap\web.config" />
     <Content Include="Bootstrap\Bootstrap.zip" />
     <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\PartTemplates\LivefyreCommentsPlugin.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\PartTemplates\DisqusCommentsPlugin.cshtml" />
     <None Include="N2\n2cms.configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -260,9 +262,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>4736</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7504/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

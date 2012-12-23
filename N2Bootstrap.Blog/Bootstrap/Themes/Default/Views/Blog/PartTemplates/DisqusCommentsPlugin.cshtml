@@ -1,0 +1,21 @@
+﻿@using N2.Web
+@model N2Bootstrap.Blog.Library.Models.DisqusCommentsPlugin
+@{
+    var currentPost = N2.Context.CurrentPage as N2Bootstrap.Blog.Library.Models.Post;
+    if (currentPost == null)
+    {
+        return;
+    }
+}
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = '@Model.DisqusShortname'; // required: replace example with your forum shortname
+    var disqus_title = '@currentPost.Title';
+    var disqus_identifier = 'post-@currentPost.ID';
+    var disqus_url = '@(N2.Web.Url.ServerUrl + currentPost.Url)';
+    (function () {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>

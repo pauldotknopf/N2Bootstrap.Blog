@@ -59,7 +59,7 @@ namespace N2Bootstrap.Blog.Library.Models
         {
             get
             {
-                return GetChildren(Content.Is.InZone("CommentsPlugin"))
+                return GetChildren(Content.Is.All(Content.Is.InZone("CommentsPlugin"), Content.Is.Type<CommentsPlugin>()))
                     .Cast<CommentsPlugin>();
             }
         }
@@ -171,6 +171,11 @@ namespace N2Bootstrap.Blog.Library.Models
             System.Web.HttpContext.Current.Items["blogSelectedTag"] = tag;
 
             return tag;
+        }
+
+        public CommentsPlugin GetCommentsPlugin()
+        {
+            return CommentsPlugins.FirstOrDefault();
         }
     }
 }
