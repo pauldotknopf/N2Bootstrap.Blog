@@ -23,7 +23,7 @@ namespace N2Bootstrap.Blog.Library.Definitions
 
         public AllowedDefinitionResult IsAllowed(AllowedDefinitionQuery query)
         {
-            var isDragAndDrop = N2.Web.UI.WebControls.ControlPanel.GetState(N2.Context.Current).HasFlag(ControlPanelState.DragDrop);
+            var isDragAndDrop = ControlPanel.GetState(N2.Context.Current).HasFlag(ControlPanelState.DragDrop);
 
             // dont show the plugin when drag and dropping (only for blogcontainer editing).
             if (isDragAndDrop)
