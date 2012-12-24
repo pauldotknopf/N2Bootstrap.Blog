@@ -43,3 +43,4 @@ Build/*.nupkg
 N2Bootstrap.Blog/App_Data/n2.sqlite.db
 N2Bootstrap.Blog.Library/Properties/VersionInfo.cs
 N2Bootstrap.Blog/Properties/VersionInfo.cs
+N2Bootstrap.Blog/Bootstrap/Bootstrap.Blog.zip
