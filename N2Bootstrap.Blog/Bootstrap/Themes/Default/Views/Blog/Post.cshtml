@@ -28,12 +28,12 @@
         else
         {
             // we are rendering a list
-            <div class="page-header">
+            <div class="page-header blog-page-header">
                 <h1><a href="@Model.Post.Url" rel="bookmark" title="@Model.Post.Title">@Model.Post.Title</a></h1>
             </div>
         }
         <p class="meta muted">
-            Posted <time datetime="@Model.Post.Published.Value.ToShortDateString()" pubdate="">@Model.Post.Published.Value.ToString("MMMM dd, yyyy") </time>
+            Posted <time datetime="@Model.Post.PostCreatedDate.ToShortDateString()" pubdate="">@Model.Post.PostCreatedDate.ToString("MMMM dd, yyyy") </time>
             @if (Model.Post.BlogCategories.Any())
             {
                 <text>

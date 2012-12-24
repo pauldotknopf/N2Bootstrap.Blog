@@ -51,7 +51,7 @@ namespace N2Bootstrap.Blog.Library.Models
             if (category != null)
                 query = query.Where(x => x.BlogCategories.Any(y => y.ID == category.ID));
 
-            return query.ToList();
+            return query.OrderByDescending(x => x.PostCreatedDate).ToList();
         }
 
         [EditableChildren("Comments Plugin", "CommentsPlugin", 0, ContainerName = "Blog", SortOrder = int.MaxValue)]
