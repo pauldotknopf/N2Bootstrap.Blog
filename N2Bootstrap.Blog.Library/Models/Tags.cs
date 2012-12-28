@@ -9,10 +9,9 @@ using N2Bootstrap.Library.Models;
 namespace N2Bootstrap.Blog.Library.Models
 {
     [PartDefinition("Tags", IconUrl = "{IconsUrl}/tag_red.png")]
-    [WithEditableTitle(Required = false)]
-    public class Tags : PartModelBase
+    public class Tags : SidebarPart
     {
-        [EditableLink(Title = "Blog")]
+        [EditableLink(Title = "Blog", SortOrder = 200)]
         public virtual ContentItem Blog { get; set; }
 
         /// <summary>

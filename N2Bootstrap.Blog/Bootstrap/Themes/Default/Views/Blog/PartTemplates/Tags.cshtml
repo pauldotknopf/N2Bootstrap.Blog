@@ -13,7 +13,7 @@
 }
 else
 {
-    if (!string.IsNullOrEmpty(Model.Title))
+    if (Model.ShowTitle && !string.IsNullOrEmpty(Model.Title))
     {
         <h3>@Model.Title</h3>
     }

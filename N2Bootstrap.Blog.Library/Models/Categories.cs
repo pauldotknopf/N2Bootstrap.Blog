@@ -9,15 +9,18 @@ using N2Bootstrap.Library.Models;
 namespace N2Bootstrap.Blog.Library.Models
 {
     [PartDefinition("Categories", IconUrl = "{IconsUrl}/tag_blue.png")]
-    [WithEditableTitle(Required = false)]
+    [WithEditableTitle(SortOrder = 100)]
     public class Categories : SubNavigation
     {
+        [EditableCheckBox(CheckBoxText = "", DefaultValue = true, SortOrder = 101, Title = "Show title")]
+        public virtual bool ShowTitle { get; set; }
+
         /// <summary>
         /// Override to remove from edit and make false.
         /// </summary>
         public override bool AllowDropDown { get { return false; } }
 
-        [EditableLink(Title = "Blog")]
+        [EditableLink(Title = "Blog", SortOrder = 102)]
         public override ContentItem StartFrom
         {
             get { return base.GetDetail<ContentItem>("StartFrom", null); }
