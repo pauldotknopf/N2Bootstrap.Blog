@@ -9,7 +9,7 @@
     <projectUrl>http://github.com/theonlylawislove/N2Bootstrap.Blog</projectUrl>
     <licenseUrl>http://github.com/theonlylawislove/N2Bootstrap.Blog</licenseUrl>
     <dependencies>
-      <dependency id="N2Bootstrap.Library" version="[1.0.0.6]" />
+      <dependency id="N2Bootstrap.Library" version="[1.0.0.7]" />
     </dependencies>
   </metadata>
   <files>

@@ -10,7 +10,7 @@
     <licenseUrl>http://github.com/theonlylawislove/N2Bootstrap.Blog</licenseUrl>
     <dependencies>
       <dependency id="N2Bootstrap.Blog.Library" version="[$(version)]" />
-      <dependency id="N2Bootstrap" version="[1.0.0.6]" />
+      <dependency id="N2Bootstrap" version="[1.0.0.7]" />
     </dependencies>
   </metadata>
   <files>
