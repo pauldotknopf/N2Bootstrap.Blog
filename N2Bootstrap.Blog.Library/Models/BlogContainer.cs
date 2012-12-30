@@ -38,20 +38,60 @@ namespace N2Bootstrap.Blog.Library.Models
             }
         }
 
-        public List<Post> GetBlogPosts(Tag tag = null, Category category = null)
+        public PagedList<Post> GetBlogPosts(int pageNumber, int pageSize, Tag tag = null, Category category = null)
         {
-            var query = new ItemList<Post>(BlogPosts, N2.Content.Is.All(
-                N2.Content.Is.AccessiblePage(),
-                N2.Content.Is.Published()))
-                .AsQueryable();
+            var query = Find.Items.Where.Type.Eq(typeof(Post)).And.AncestralTrail.Eq(this.GetTrail());
 
-            if (tag != null)
-                query = query.Where(x => x.BlogTags.Any(y => y.ID == tag.ID));
+            // TODO: Implemented custom published dates?
+            #region
+            //.Where
+            //    .Type.Eq(typeof(Post))
+            //.And
+            //    .OpenBracket()
+            //        .State.Eq(ContentState.None)
+            //    .Or
+            //        .State.Eq(ContentState.New)
+            //    .Or
+            //        .State.Eq(ContentState.Published)
+            //    .CloseBracket()
+            //.And
+            //    .OpenBracket()
+            //        .Published.IsNotNull()
+            //    .And
+            //        .Published.Le(Utility.CurrentTime())
+            //    .And
+            //        .OpenBracket()
+            //            .Expires.IsNull()
+            //        .Or
+            //            .Expires.Gt(Utility.CurrentTime())
+            //        .CloseBracket()
+            //    .CloseBracket();
+            #endregion
 
             if (category != null)
-                query = query.Where(x => x.BlogCategories.Any(y => y.ID == category.ID));
+            {
+                query = query.And.Detail("BlogCategories").In(category);
+            }
 
-            return query.OrderByDescending(x => x.PostCreatedDate).ToList();
+            if (tag != null)
+            {
+                query = query.And.Detail("BlogTags").In(tag);
+            }
+
+            var total = query.Count();
+
+            var firstResult = (pageNumber - 1)*pageSize;
+
+            var result = query.OrderBy.Detail("PostCreatedDate").Desc.FirstResult(firstResult).MaxResults(pageSize).Select<Post>();
+
+            var pagedList = new PagedList<Post>();
+            pagedList.AddRange(result);
+            pagedList.PageNumber = pageNumber;
+            pagedList.PageSize = pageSize;
+            pagedList.TotalCount = total;
+            pagedList.TotalPages = (int)Math.Ceiling((decimal)total / pageSize);
+
+            return pagedList;
         }
 
         [EditableChildren("Comments Plugin", "CommentsPlugin", 0, ContainerName = "Blog", SortOrder = int.MaxValue)]

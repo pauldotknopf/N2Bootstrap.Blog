@@ -1,8 +1,19 @@
-﻿@using N2Bootstrap.Blog.Library.Models
+﻿@using N2Bootstrap.Blog.Library
+@using N2Bootstrap.Blog.Library.Models
 @using N2Bootstrap.Blog.Library.ViewModels
 @model N2Bootstrap.Blog.Library.Models.BlogContainer
 @Html.Partial("LayoutPartials/Content")
-@foreach (var post in Model.GetBlogPosts(Model.GetSelectedTag(), Model.GetSelectedCategory()))
+@{
+    int pageNumber = 1;
+    int.TryParse(Request.QueryString["bp"], out pageNumber);
+    if (pageNumber < 1)
+    {
+        pageNumber = 1;
+    }
+    var posts = Model.GetBlogPosts(pageNumber, 2, Model.GetSelectedTag(), Model.GetSelectedCategory());
+}
+@foreach (var post in posts)
 {
     @Html.Partial("Post", new PostModel { IsList = true, Post = post })
 }
+@Html.PagingLinksBuilder(posts.PageNumber, posts.TotalPages, (page) => N2.Context.Current.RequestContext.Url.SetQueryParameter("bp", page))
