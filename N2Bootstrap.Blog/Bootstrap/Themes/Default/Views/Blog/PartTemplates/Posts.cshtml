@@ -1,0 +1,29 @@
+﻿@using N2.Web
+@model N2Bootstrap.Blog.Library.Models.Posts
+@{
+    var blog = Model.GetBlogContainer(); 
+}
+@if (blog == null)
+{
+    <p>
+        <b>No blog container was found or specified.</b><br />
+        If you are manually specifying a blog, ensure it is not deleted and it is a blog.<br />
+        If you are not manually specifying a blog, then this part must be located below a blog.
+    </p>
+}
+else
+{
+    var posts = blog.GetBlogPosts(1, Model.NumberOfPosts, Model.Sort);
+    if (Model.ShowTitle && !string.IsNullOrEmpty(Model.Title))
+    {
+    <h3>@Model.Title</h3>
+    }
+    foreach (var post in posts)
+    {
+    <div class='media'>
+        <div class='media-body'>
+            <h4 class="media-heading">@Link.To(post)</h4>
+        </div>
+    </div>
+    }
+} 

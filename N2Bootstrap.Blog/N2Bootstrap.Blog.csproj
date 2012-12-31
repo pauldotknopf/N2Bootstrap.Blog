@@ -242,6 +242,7 @@
     <Content Include="Bootstrap\Bootstrap.zip" />
     <Content Include="Bootstrap\web.config" />
     <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\PartTemplates\Posts.cshtml" />
     <None Include="N2\n2cms.configuration.xsd">
       <SubType>Designer</SubType>
     </None>

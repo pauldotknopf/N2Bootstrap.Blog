@@ -116,6 +116,7 @@
     <Compile Include="Models\DisqusCommentsPlugin.cs" />
     <Compile Include="Models\LivefyreCommentsPlugin.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Posts.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="PagedList.cs" />

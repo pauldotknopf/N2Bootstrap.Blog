@@ -12,6 +12,7 @@ namespace N2Bootstrap.Blog.Library.Controllers
     [Controls(typeof(Category))]
     [Controls(typeof(Categories))]
     [Controls(typeof(Post))]
+    [Controls(typeof(Posts))]
     [Controls(typeof(Tag))]
     [Controls(typeof(Tags))]
     [Controls(typeof(CommentsPlugin))]
