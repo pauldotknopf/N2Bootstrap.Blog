@@ -11,6 +11,7 @@
     <dependencies>
       <dependency id="N2Bootstrap.Blog.Library" version="[$(version)]" />
       <dependency id="N2Bootstrap" version="[1.0.0.7]" />
+      <dependency id="ImageResizer.WebConfig" version="[3.3.1]" />
     </dependencies>
   </metadata>
   <files>

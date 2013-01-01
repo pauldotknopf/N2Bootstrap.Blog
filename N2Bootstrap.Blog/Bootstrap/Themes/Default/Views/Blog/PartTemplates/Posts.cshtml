@@ -16,7 +16,7 @@ else
     var posts = blog.GetBlogPosts(1, Model.NumberOfPosts, Model.Sort);
     if (Model.ShowTitle && !string.IsNullOrEmpty(Model.Title))
     {
-    <h3>@Model.Title</h3>
+        <h3>@Model.Title</h3>
     }
     foreach (var post in posts)
     {
