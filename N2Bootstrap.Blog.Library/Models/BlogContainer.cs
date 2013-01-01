@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web.Mvc;
 using N2;
-using N2.Collections;
 using N2.Details;
-using N2.Integrity;
 using N2.Persistence;
-using N2.Persistence.Finder;
 using N2.Persistence.NH;
 using N2.Web;
 using N2.Web.UI;
 using N2Bootstrap.Blog.Library.Definitions;
+using N2Bootstrap.Library;
 using NHibernate;
-using NHibernate.Engine;
 
 namespace N2Bootstrap.Blog.Library.Models
 {
-    [PageDefinition("Blog", IconUrl="/Bootstrap/Themes/Default/Content/Images/blog-icon.png")]
+    [PageDefinition("Blog", IconUrl = "/Bootstrap/Themes/Default/Content/Images/blog-icon.png")]
     [TabContainer("TagTab", "Tags", 2000)]
     [TabContainer("CategoryTab", "Categories", 3000)]
     [TabContainer("Blog", "Blog", 4000)]
@@ -26,21 +22,103 @@ namespace N2Bootstrap.Blog.Library.Models
     [NotVersionable]
     public class BlogContainer : N2Bootstrap.Library.Models.ContentPage
     {
+        #region Blog
+
+        [EditableChildren("Comments Plugin", "CommentsPlugin", 0, ContainerName = "Blog", SortOrder = 200)]
+        public IList<CommentsPlugin> CommentsPlugins
+        {
+            get
+            {
+                return GetChildren(Content.Is.All(Content.Is.InZone("CommentsPlugin"), Content.Is.Type<CommentsPlugin>()))
+                    .Cast<CommentsPlugin>();
+            }
+        }
+
+        [EditableNumber(Title = "Posts per page", DefaultValue = 5, MinimumValue = "1", MaximumValue = "50", InvalidRangeText = "Please specify a valid number of posts per page (1-50).", SortOrder = 201, ContainerName = "Blog")]
+        public virtual int PostsPerPage { get; set; }
+
+        [EditableEnum(Title = "List template", DefaultValue = ListTemplateEnum.List, EnumType = typeof(ListTemplateEnum), SortOrder = 202, ContainerName = "Blog")]
+        public virtual ListTemplateEnum ListTemplate { get; set; }
+
+        [EditableEnum(Title = "List image display type", SortOrder = 203, ContainerName = "Blog", DefaultValue = Defaults.ImageDisplayTypeEnum.Polaroid, EnumType = typeof(Defaults.ImageDisplayTypeEnum))]
+        public virtual Defaults.ImageDisplayTypeEnum ListImageDisplayType { get; set; }
+
+        #endregion
+
+        #region Tags/Categories
+
+        [EditableChildren("Tags", "Tag", 0, ContainerName = "TagTab", SortOrder = int.MaxValue)]
+        public IList<Tag> Tags
+        {
+            get
+            {
+                return GetChildren(N2.Content.Is.All(
+                        N2.Content.Is.Accessible(),
+                        N2.Content.Is.Published(),
+                        N2.Content.Is.Visible(),
+                        N2.Content.Is.Type<Tag>(),
+                        N2.Content.Is.InZone("Tag")))
+                    .Cast<Tag>();
+            }
+        }
+
+        [EditableChildren("Categories", "Category", 1, ContainerName = "CategoryTab", SortOrder = int.MaxValue)]
+        public IList<Category> Categories
+        {
+            get
+            {
+                return GetChildren(N2.Content.Is.All(
+                        N2.Content.Is.Accessible(),
+                        N2.Content.Is.Published(),
+                        N2.Content.Is.Visible(),
+                        N2.Content.Is.Type<Category>(),
+                        N2.Content.Is.InZone("Category")))
+                    .Cast<Category>();
+            }
+        }
+
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// This is overriden so that this page can be used to match:
+        /// thisPage/category/categoryName
+        /// Or
+        /// thisPage/tag/tagName
+        /// </summary>
+        /// <param name="remainingUrl"></param>
+        /// <returns></returns>
+        public override N2.Web.PathData FindPath(string remainingUrl)
+        {
+            const string pattern = @"^\/(category|tag)/([^/]+)/?$";
+
+            if (!string.IsNullOrEmpty(remainingUrl) && Regex.IsMatch(remainingUrl, pattern))
+            {
+                var match = Regex.Match(remainingUrl, pattern);
+                var key = match.Groups[1].Value;
+                var value = match.Groups[2].Value;
+
+                var pathData = base.FindPath(null);
+                pathData.QueryParameters.Add(new KeyValuePair<string, string>(key, value));
+
+                return pathData;
+            }
+
+            return base.FindPath(remainingUrl);
+        }
+
+        /// <summary>
+        /// Use the "Blog" template
+        /// </summary>
         public override string ViewTemplate
         {
             get { return "Blog"; }
         }
 
-        public List<Post> BlogPosts
-        {
-            get
-            {
-                return GetChildren(new TypeFilter(typeof(Post)), new PublishedFilter(), new AncestorFilter(this))
-                    .Cast<Post>()
-                    .OrderByDescending(x => x.PostCreatedDate)
-                    .ToList();
-            }
-        }
+        #endregion
+
+        #region BL
 
         public PagedList<Post> GetBlogPosts(int pageNumber, int pageSize, PostsSortEnum sort = PostsSortEnum.Newest, Tag tag = null, Category category = null)
         {
@@ -80,7 +158,7 @@ namespace N2Bootstrap.Blog.Library.Models
 
             // get the posts paged
             var query = session.CreateQuery("select ci from ContentItem ci " + where + " order by (select MAX(DateTimeValue) from ContentDetail cd where cd.EnclosingItem = ci and cd.Name = 'postCreatedDate') desc");
-            query.SetFirstResult((pageNumber - 1)*pageSize);
+            query.SetFirstResult((pageNumber - 1) * pageSize);
             query.SetMaxResults(pageSize);
             Array.ForEach(queryActions.ToArray(), a => a(query));
             var posts = query.List<Post>();
@@ -96,70 +174,8 @@ namespace N2Bootstrap.Blog.Library.Models
             pagedList.PageNumber = pageNumber;
             pagedList.PageSize = pageSize;
             pagedList.TotalCount = total;
-            pagedList.TotalPages = (int) Math.Ceiling((decimal) total/pageSize);
+            pagedList.TotalPages = (int)Math.Ceiling((decimal)total / pageSize);
             return pagedList;
-        }
-
-        [EditableChildren("Comments Plugin", "CommentsPlugin", 0, ContainerName = "Blog", SortOrder = int.MaxValue)]
-        public IList<CommentsPlugin> CommentsPlugins
-        {
-            get
-            {
-                return GetChildren(Content.Is.All(Content.Is.InZone("CommentsPlugin"), Content.Is.Type<CommentsPlugin>()))
-                    .Cast<CommentsPlugin>();
-            }
-        }
-
-        [EditableChildren("Tags", "Tag", 0, ContainerName = "TagTab", SortOrder=int.MaxValue)]
-        public IList<Tag> Tags
-        {
-            get
-            {
-                return GetChildren(N2.Content.Is.All(
-                        N2.Content.Is.Accessible(), 
-                        N2.Content.Is.Published(),
-                        N2.Content.Is.Visible(), 
-                        N2.Content.Is.Type<Tag>(),
-                        N2.Content.Is.InZone("Tag")))
-                    .Cast<Tag>();
-            }
-        }
-
-        [EditableChildren("Categories", "Category", 1, ContainerName = "CategoryTab", SortOrder=int.MaxValue)]
-        public IList<Category> Categories
-        {
-            get
-            {
-                return GetChildren(N2.Content.Is.All(
-                        N2.Content.Is.Accessible(),
-                        N2.Content.Is.Published(),
-                        N2.Content.Is.Visible(),
-                        N2.Content.Is.Type<Category>(),
-                        N2.Content.Is.InZone("Category")))
-                    .Cast<Category>();
-            }
-        }
-
-        [EditableNumber(Title = "Posts per page", DefaultValue = 5, MinimumValue = "1", MaximumValue = "50", InvalidRangeText = "Please specify a valid number of posts per page (1-50).", SortOrder = int.MaxValue)]
-        public virtual int PostsPerPage { get; set; }
-
-        public override N2.Web.PathData FindPath(string remainingUrl)
-        {
-            const string pattern = @"^\/(category|tag)/([^/]+)/?$";
-
-            if (!string.IsNullOrEmpty(remainingUrl) && Regex.IsMatch(remainingUrl, pattern))
-            {
-                var match = Regex.Match(remainingUrl, pattern);
-                var key = match.Groups[1].Value;
-                var value = match.Groups[2].Value;
-
-                var pathData = base.FindPath(null);
-                pathData.QueryParameters.Add(new KeyValuePair<string, string>(key, value));
-
-                return pathData;
-            }
-
-            return base.FindPath(remainingUrl);
         }
 
         public Category GetSelectedCategory()
@@ -181,7 +197,7 @@ namespace N2Bootstrap.Blog.Library.Models
                     redirect = true;
                 }
             }
-            
+
             if (redirect)
             {
                 System.Web.HttpContext.Current.Response.Redirect(Url);
@@ -222,9 +238,21 @@ namespace N2Bootstrap.Blog.Library.Models
             return tag;
         }
 
+        #endregion
+
+        #region Nested Types
+
         public enum PostsSortEnum
         {
             Newest
         }
+
+        public enum ListTemplateEnum
+        {
+            List,
+            Grid
+        }
+
+        #endregion
     }
 }

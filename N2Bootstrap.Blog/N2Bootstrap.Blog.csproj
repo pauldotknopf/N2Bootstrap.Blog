@@ -90,13 +90,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\N2CMS.Razor.2.4.9.2\lib\NET40\N2.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="N2Bootstrap, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\N2Bootstrap.1.0.0.9\lib\net40\N2Bootstrap.dll</HintPath>
+      <HintPath>..\packages\N2Bootstrap.1.0.0.11\lib\net40\N2Bootstrap.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap.Library, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="N2Bootstrap.Library, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\N2Bootstrap.Library.1.0.0.9\lib\net40\N2Bootstrap.Library.dll</HintPath>
+      <HintPath>..\packages\N2Bootstrap.Library.1.0.0.11\lib\net40\N2Bootstrap.Library.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -239,10 +239,17 @@
     <Content Include="App_Data\n2_host.config.transform" />
     <Content Include="Bootstrap\Themes\Default\Views\Blog\PartTemplates\LivefyreCommentsPlugin.cshtml" />
     <Content Include="Bootstrap\Themes\Default\Views\Blog\PartTemplates\DisqusCommentsPlugin.cshtml" />
-    <Content Include="Bootstrap\Bootstrap.zip" />
-    <Content Include="Bootstrap\web.config" />
-    <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
     <Content Include="Bootstrap\Themes\Default\Views\Blog\PartTemplates\Posts.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\BlogPartials\Meta.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\BlogPartials\Footer.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\BlogPartials\Text.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\BlogPartials\Image.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\BlogPartials\Header.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\ListTemplates\Grid.cshtml" />
+    <Content Include="Bootstrap\Themes\Default\Views\Blog\ListTemplates\List.cshtml" />
+    <Content Include="Bootstrap\web.config" />
+    <Content Include="Bootstrap\Bootstrap.zip" />
+    <Content Include="App_Data\SampleBootstrap.n2.xml.gz" />
     <None Include="N2\n2cms.configuration.xsd">
       <SubType>Designer</SubType>
     </None>

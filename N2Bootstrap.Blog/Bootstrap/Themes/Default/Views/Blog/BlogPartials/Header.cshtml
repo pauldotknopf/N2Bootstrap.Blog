@@ -1,0 +1,25 @@
+﻿@using N2Bootstrap.Blog.Library
+@model N2Bootstrap.Blog.Library.ViewModels.PostModel
+<header>
+    @if (!Model.IsList)
+    {
+        // we are full page!
+
+        // refering to the "Post" class, the layout doesn't render page title in this case, so we must manually check and do it our selves (for semantics).
+        var showPageTitle = Model.Post.GetDetail("ShowPageTitle", true);
+        if (showPageTitle)
+        {
+            <div class="page-header blog-page-header">
+                <h1>@Model.Post.Title</h1>
+            </div>
+        }
+    }
+    else
+    {
+        // we are rendering a list
+        <div class="page-header blog-page-header">
+            <h1><a href="@Model.Post.Url" rel="bookmark" title="@Model.Post.Title">@Model.Post.Title</a></h1>
+        </div>
+    }
+    @Html.Partial("BlogPartials/Meta", Model.Post)
+</header>

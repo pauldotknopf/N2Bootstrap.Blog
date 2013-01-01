@@ -1,0 +1,27 @@
+﻿@using N2Bootstrap.Blog.Library
+@model List<N2Bootstrap.Blog.Library.ViewModels.PostModel>
+@{
+    var liClass = "span4";
+    if (((Defaults.Columns)ViewContext.TempData["layout.columns"]) == Defaults.Columns.ThreeColumn)
+    {
+        liClass = "span3";
+    }
+}
+<ul class="thumbnails blog-template-grid">
+    @foreach (var post in Model)
+    {
+        <li class="@liClass">
+            <div class="thumbnail">
+                @Html.Partial("BlogPartials/Image", post)
+                <div class="caption">
+                    @*<h1>@N2.Web.Link.To(post.Post)</h1>*@
+                    @Html.Partial("BlogPartials/Header", post)
+                    @Html.Partial("BlogPartials/Text", post)
+                    <p>
+                        <a class="btn btn-primary" href="@post.Post.Url">Read more</a>
+                    </p>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

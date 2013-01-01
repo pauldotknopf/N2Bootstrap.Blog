@@ -1,0 +1,16 @@
+﻿@using N2Bootstrap.Blog.Library
+@model List<N2Bootstrap.Blog.Library.ViewModels.PostModel>
+@{
+    var imageDisplayType = (N2.Context.CurrentPage as N2Bootstrap.Blog.Library.Models.BlogContainer).ListImageDisplayType;
+}
+<div class="blog-template-list">
+    @foreach (var post in Model)
+    {
+        <article id="post-@(post.Post.ID)" class="blog-post post-@(post.Post.ID)" role="article">
+            @Html.Partial("BlogPartials/Header", post)
+            @Html.Partial("BlogPartials/Image", post)
+            @Html.Partial("BlogPartials/Text", post)
+            @Html.Partial("BlogPartials/Footer", post.Post)
+        </article>
+    }
+</div>

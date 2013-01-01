@@ -1,0 +1,17 @@
+﻿@model N2Bootstrap.Blog.Library.ViewModels.PostModel
+@{
+    if (string.IsNullOrEmpty(Model.Post.Image))
+    {
+        return;
+    }
+    
+    // if we are in list mode, we are rendering on BlogContainer, thus using the image display type on the blog container
+    Defaults.ImageDisplayTypeEnum imageDisplayType;
+    imageDisplayType = Model.IsList ? (N2.Context.CurrentPage as N2Bootstrap.Blog.Library.Models.BlogContainer).ListImageDisplayType : Model.Post.ImageDisplayType;
+    var o = new Object();
+}
+<figure class="page-image">
+    <a href="@Model.Post.Url" title="@Model.Post.Title">
+        <img src="@Model.Post.Image" alt="@Model.Post.Title" title="@Model.Post.Title" class="@Defaults.GetImageClass(imageDisplayType)">
+    </a>
+</figure>

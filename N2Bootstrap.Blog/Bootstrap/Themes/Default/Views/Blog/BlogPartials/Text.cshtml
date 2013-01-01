@@ -1,0 +1,17 @@
+﻿@using N2Bootstrap.Blog.Library
+@model N2Bootstrap.Blog.Library.ViewModels.PostModel
+@if (Model.IsList)
+{
+    if (!string.IsNullOrEmpty(Model.Post.Summary))
+    {
+        <section>
+            <p>@Model.Post.Summary</p>
+        </section>
+    }
+}
+else
+{
+    <section>
+        @Html.Raw(Model.Post.Text)
+    </section>
+}

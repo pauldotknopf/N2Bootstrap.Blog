@@ -1,0 +1,17 @@
+﻿@using N2Bootstrap.Blog.Library
+@model N2Bootstrap.Blog.Library.Models.Post
+@{
+    var tags = Model.BlogTags;
+}
+<footer>
+    @if (tags.Any())
+    {
+        <p>
+            Tags: @Html.ContentItemLinkList(tags, " ", link =>
+            {
+                link.Attribute("rel", "tag");
+                link.Class("label");
+            })
+        </p>
+    }
+</footer>

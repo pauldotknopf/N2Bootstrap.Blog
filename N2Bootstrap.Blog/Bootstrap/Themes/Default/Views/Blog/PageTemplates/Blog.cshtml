@@ -12,11 +12,8 @@
     }
     var posts = Model.GetBlogPosts(pageNumber, Model.PostsPerPage, BlogContainer.PostsSortEnum.Newest, Model.GetSelectedTag(), Model.GetSelectedCategory());
 }
-@foreach (var post in posts)
-{
-    @Html.Partial("Post", new PostModel { IsList = true, Post = post })
-}
+@Html.Partial("ListTemplates/" + Model.ListTemplate.ToString(), posts.Select(x => new PostModel {IsList = true, Post = x}).ToList())
 @if (posts.TotalPages > 1)
 {
-    @Html.PagingLinksBuilder(posts.PageNumber, posts.TotalPages, (page) => N2.Context.Current.RequestContext.Url.SetQueryParameter("bp", page))
+    @Html.PagingLinksBuilder(posts.PageNumber, posts.TotalPages, page => N2.Context.Current.RequestContext.Url.SetQueryParameter("bp", page))
 }

@@ -19,9 +19,6 @@ namespace N2Bootstrap.Blog.Library.Models
     [NotVersionable]
     public class Post : N2Bootstrap.Library.Models.ContentPage
     {
-        [EditableImage(ContainerName = "Blog")]
-        public virtual string Image { get; set; }
-
         [EditableMultipleItemProviderSelection(typeof(Category), Title = "Categories", ContainerName = "Blog")]
         public List<Category> BlogCategories
         {

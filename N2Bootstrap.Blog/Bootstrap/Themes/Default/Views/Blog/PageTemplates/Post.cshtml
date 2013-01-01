@@ -1,2 +1,11 @@
 ﻿@model N2Bootstrap.Blog.Library.Models.Post
-@Html.Partial("Post", new N2Bootstrap.Blog.Library.ViewModels.PostModel { IsList = false, Post = Model })
+@{
+    var viewModel = new N2Bootstrap.Blog.Library.ViewModels.PostModel {IsList = false, Post = Model};
+}
+<article id="post-@(viewModel.Post.ID)" class="blog-post post-@(viewModel.Post.ID)" role="article">
+    @Html.Partial("BlogPartials/Header", viewModel)
+    @Html.Partial("BlogPartials/Image", viewModel)
+    @Html.Partial("BlogPartials/Text", viewModel)
+    @Html.Partial("BlogPartials/Footer", viewModel.Post)
+</article>
+@{ Html.RenderZone(Model.Parent, "CommentsPlugin"); }

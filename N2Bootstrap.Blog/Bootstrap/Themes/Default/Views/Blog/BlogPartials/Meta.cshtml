@@ -1,0 +1,19 @@
+﻿@using N2Bootstrap.Blog.Library
+@model N2Bootstrap.Blog.Library.Models.Post
+@{
+    var categories = Model.BlogCategories;
+}
+<p class="meta muted">
+    Posted <time datetime="@Model.PostCreatedDate.ToShortDateString()" pubdate="">@Model.PostCreatedDate.ToString("MMMM dd, yyyy") </time>
+    @if (categories.Any())
+    {
+        <text>
+        <span class="amp">&amp;</span> filed under @Html.ContentItemLinkList(categories,
+                                                                            linkModifier: link =>
+                                                                            {
+                                                                                link.Attribute("rel", "category tag");
+                                                                                link.Title("View all posts in " + (link as N2.Web.Link).Contents);
+                                                                            })
+        </text>
+    }
+</p>
