@@ -97,7 +97,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\N2Bootstrap.1.0.0.11\lib\net40\N2Bootstrap.dll</HintPath>
     </Reference>
-    <Reference Include="N2Bootstrap.Library, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="N2Bootstrap.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\N2Bootstrap.Library.1.0.0.11\lib\net40\N2Bootstrap.Library.dll</HintPath>
     </Reference>
