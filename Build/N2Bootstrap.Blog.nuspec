@@ -10,7 +10,7 @@
     <licenseUrl>http://github.com/theonlylawislove/N2Bootstrap.Blog</licenseUrl>
     <dependencies>
       <dependency id="N2Bootstrap.Blog.Library" version="[$(version)]" />
-      <dependency id="N2Bootstrap" version="[1.0.0.10]" />
+      <dependency id="N2Bootstrap" version="[1.0.0.11]" />
       <dependency id="ImageResizer.WebConfig" version="[3.3.1]" />
     </dependencies>
   </metadata>
