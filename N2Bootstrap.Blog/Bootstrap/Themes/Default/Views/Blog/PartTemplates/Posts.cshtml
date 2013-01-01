@@ -1,5 +1,4 @@
-﻿@using N2.Web
-@model N2Bootstrap.Blog.Library.Models.Posts
+﻿@model N2Bootstrap.Blog.Library.Models.Posts
 @{
     var blog = Model.GetBlogContainer(); 
 }
@@ -20,13 +19,22 @@ else
     }
     foreach (var post in posts)
     {
-        <div class='media'>
-            @if (!string.IsNullOrEmpty(post.Image))
+        <div class="media">
+            @if (!string.IsNullOrEmpty(post.Image) && Model.ShowImage)
             {
-                <a href="@post.Url" class="pull-left" title="@post.Title"><img src="@post.Image" /></a>
+                var imageUrl = new N2.Web.Url(post.Image)
+                    .SetQueryParameter("width", Model.ImageSize)
+                    .SetQueryParameter("height", Model.ImageSize)
+                    .SetQueryParameter("mode", "crop")
+                    .SetQueryParameter("scale", "both");
+                <a href="@post.Url" class="pull-left" title="@post.Title"><img src="@imageUrl" /></a>
             }
-            <div class='media-body'>
-                <h4 class="media-heading">@Link.To(post)</h4>
+            <div class="media-body">
+                <h4 class="media-heading">@N2.Web.Link.To(post)</h4>
+                @if (!string.IsNullOrEmpty(post.Summary))
+                {
+                    <p>@Defaults.PreviewText(post.Summary, Model.MaxCharacters)</p>
+                }
             </div>
         </div>
     }
