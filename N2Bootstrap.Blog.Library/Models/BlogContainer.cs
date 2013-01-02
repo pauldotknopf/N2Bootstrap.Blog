@@ -123,7 +123,6 @@ namespace N2Bootstrap.Blog.Library.Models
         public PagedList<Post> GetBlogPosts(int pageNumber, int pageSize, PostsSortEnum sort = PostsSortEnum.Newest, Tag tag = null, Category category = null)
         {
             var queryActions = new List<Action<IQuery>>();
-            var session = Context.Current.Resolve<ISessionProvider>().SessionFactory.OpenSession();
 
             // base where query
             var where = "where VersionOf.ID Is Null and (  ci.class  =  :class And ci.Parent.ID  =  :parentId)";
@@ -157,14 +156,14 @@ namespace N2Bootstrap.Blog.Library.Models
             }
 
             // get the posts paged
-            var query = session.CreateQuery("select ci from ContentItem ci " + where + " order by (select MAX(DateTimeValue) from ContentDetail cd where cd.EnclosingItem = ci and cd.Name = 'postCreatedDate') desc");
+            var query = Context.Current.Resolve<ISessionProvider>().OpenSession.Session.CreateQuery("select ci from ContentItem ci " + where + " order by (select MAX(DateTimeValue) from ContentDetail cd where cd.EnclosingItem = ci and cd.Name = 'postCreatedDate') desc");
             query.SetFirstResult((pageNumber - 1) * pageSize);
             query.SetMaxResults(pageSize);
             Array.ForEach(queryActions.ToArray(), a => a(query));
             var posts = query.List<Post>();
 
             // get the total number of posts
-            query = session.CreateQuery("select count(*) from ContentItem ci " + where);
+            query = Context.Current.Resolve<ISessionProvider>().OpenSession.Session.CreateQuery("select count(*) from ContentItem ci " + where);
             Array.ForEach(queryActions.ToArray(), a => a(query));
             var total = Convert.ToInt32(query.List()[0]);
 
